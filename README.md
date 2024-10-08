@@ -1,82 +1,212 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# User Management Application in NestJS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![NestJS](https://img.shields.io/badge/NestJS-7E22CE?style=for-the-badge&logo=nestjs&logoColor=white)
+![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![Passport](https://img.shields.io/badge/Passport.js-34E27A?style=for-the-badge)
+![Google](https://img.shields.io/badge/Google-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)
 
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=nodejs,ts,nestjs,mongodb,npm" />
-  </a>
-</p>
-<p align="center">A comprehensive <a href="https://github.com/nestjs/nest" target="_blank">Nest.js</a> application for managing user authentication and authorization with OAuth support for Google and LinkedIn.</p>
-
-## Description
-
-This repository contains a **User Management System** built with **NestJS** and **MongoDB**, supporting features like user registration, login, profile management, and authentication using **OAuth** strategies for Google and LinkedIn. It also leverages [Nest](https://github.com/nestjs/nest) framework's TypeScript starter repository, combined with **Passport.js** for secure OAuth login integration.
+This is a **NestJS**-based user management application that allows users to register, log in, and manage their accounts with JWT-based authentication. The application supports OAuth login through Google and Facebook, as well as features for password management and user administration.
 
 ## Features
 
-- **User Registration** and **Login** with JWT authentication
-- **OAuth Login** using Google and LinkedIn
-- **Profile Management** for authenticated users
-- **Nodemailer** integration for sending registration success emails
-- Built-in test framework support (unit tests, e2e tests, and test coverage)
+- **User Registration**: Users can sign up with their email and receive a confirmation message.
+- **User Login**: Secure login with **JWT** token authentication via email or third-party OAuth providers.
+- **Login via OAuth**: Support for logging in using Google and Facebook accounts.
+- **User List**: Fetch a paginated list of users with search functionality.
+- **User Update**: Update user profile information.
+- **Password Management**:
+  - **Forgot Password**: Request a password reset link.
+  - **Reset Password**: Change password using the reset link.
+  - **Change Password**: Change the password while logged in.
+- **User Search**: Search users by various criteria.
 
-## Prerequisites for OAuth
+## Technologies Used
 
-Before using Google and LinkedIn OAuth, you'll need to:
+- **NestJS**: A framework for building scalable Node.js server-side applications.
+- **Mongoose**: For MongoDB database management and modeling.
+- **NodeMailer**: A module for sending emails (for password resets).
+- **Passport.js**: Authentication middleware for Node.js.
+- **Passport-Google-OAuth20**: Google OAuth 2.0 strategy for Passport.js.
+- **Passport-Facebook**: Facebook OAuth 2.0 strategy for Passport.js.
+- **JWT**: For JSON Web Token authentication.
 
-1. **Create a Google OAuth app**:
+## APIs
 
-   - Visit [Google Developers Console](https://console.cloud.google.com/).
-   - Create a new project.
-   - Under "APIs & Services," navigate to "Credentials" and set up an OAuth 2.0 Client ID.
-   - Set the **authorized redirect URIs** for your app (e.g., `http://localhost:3000/auth/google/callback`).
-   - Get your **Client ID** and **Client Secret**.
+### 1. **User Registration**
 
-2. **Create a LinkedIn OAuth app**:
-   - Visit [LinkedIn Developer Portal](https://www.linkedin.com/developers/).
-   - Create a new application.
-   - Configure the **OAuth 2.0 Redirect URL** (e.g., `http://localhost:3000/auth/linkedin/callback`).
-   - Get your **Client ID** and **Client Secret**.
+- **Endpoint**: `/auth/register`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "username": "John Doe",
+    "email": "john@example.com",
+    "password": "your_password"
+  }
+  ```
+- **Description**: Registers a new user and returns a confirmation message.
+
+### 2. **User Login**
+
+- **Endpoint**: `/auth/login`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "email": "john@example.com",
+    "password": "your_password"
+  }
+  ```
+- **Description**: Logs in an existing user and returns a JWT token.
+
+### 3. **Login via Google**
+
+- **Endpoint**: `/auth/google`
+- **Method**: `GET`
+- **Description**: Initiates Google OAuth flow for user authentication.
+
+### 4. **Google Callback**
+
+- **Endpoint**: `/auth/google/callback`
+- **Method**: `GET`
+- **Description**: Handles the callback after Google authentication and logs in the user.
+
+### 5. **Login via Facebook**
+
+- **Endpoint**: `/auth/facebook`
+- **Method**: `GET`
+- **Description**: Initiates Facebook OAuth flow for user authentication.
+
+### 6. **Facebook Callback**
+
+- **Endpoint**: `/auth/facebook/callback`
+- **Method**: `GET`
+- **Description**: Handles the callback after Facebook authentication and logs in the user.
+
+### 7. **User List**
+
+- **Endpoint**: `/user`
+- **Method**: `GET`
+- **Query Parameters**:
+  - `page`: Page number for pagination.
+  - `limit`: Number of users per page.
+  - `search`: Optional search term.
+- **Description**: Retrieves a paginated list of users.
+
+### 8. **User Update**
+
+- **Endpoint**: `/user/update`
+- **Method**: `PATCH`
+- **Headers**:
+  ```json
+  {
+    "Authorization": "Bearer <access_token>"
+  }
+  ```
+- **Request Body**:
+  ```json
+  {
+    "username": "John Doe",
+    "email": "john@example.com"
+  }
+  ```
+- **Description**: Updates the profile information of the logged-in user.
+
+### 9. **Forgot Password**
+
+- **Endpoint**: `/auth/forgot-password`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "email": "john@example.com"
+  }
+  ```
+- **Description**: Sends a password reset link to the user's email.
+
+### 10. **Reset Password**
+
+- **Endpoint**: `/auth/reset-password`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "token": "reset_token",
+    "newPassword": "your_new_password"
+  }
+  ```
+- **Description**: Resets the password using the provided token.
+
+### 11. **Change Password**
+
+- **Endpoint**: `/auth/change-password`
+- **Method**: `PATCH`
+- **Headers**:
+  ```json
+  {
+    "Authorization": "Bearer <access_token>"
+  }
+  ```
+- **Request Body**:
+  ```json
+  {
+    "currentPassword": "your_current_password",
+    "newPassword": "your_new_password"
+  }
+  ```
+- **Description**: Changes the password while the user is logged in.
+
+### 12. **Profile**
+
+- **Endpoint**: `/user/profile`
+- **Method**: `GET`
+- **Headers**:
+  ```json
+  {
+    "Authorization": "Bearer <access_token>"
+  }
+  ```
+- **Description**: Retrieves the profile details of the logged-in user.
 
 ## Installation
 
-1. Clone or download this repository:
+1. Clone the repository:
 
-```bash
-$ git clone <repository-url>
-$ cd user-management-nestjs
+   ```bash
+   git clone <repository-url>
+   cd user-management-app
 
-```
+   ```
 
-## OAuth Routes
+2. Install the required dependencies:
+   npm install
 
-Google OAuth Login: /auth/google
+3. Set up environment variables by creating a .env file in the root directory with the following values:
 
-Google OAuth Callback: /auth/google/callback
+GOOGLE_CLIENT_ID=<your_google_client_id>
+GOOGLE_CLIENT_SECRET=<your_google_client_secret>
+GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
 
-LinkedIn OAuth Login: /auth/linkedin
+FACEBOOK_APP_ID=<your_facebook_app_id>
+FACEBOOK_APP_SECRET=<your_facebook_app_secret>
+FACEBOOK_CALLBACK_URL=http://localhost:3000/auth/facebook/callback
 
-LinkedIn OAuth Callback: /auth/linkedin/callback
+JWT_SECRET=<your_jwt_secret>
+MONGODB_URI=<your_mongodb_connection_string>
+
+4. Run the application:
+
+npm run start
+
+5. Open the app in your browser at http://localhost:3000.
 
 ## Project Structure
 
 src/
-|-- auth/ # OAuth strategies for Google and LinkedIn, and JWT authentication
-|-- user/ # User management including registration, login, and profile
-|-- mail/ # Nodemailer integration for sending success emails
+|-- auth/ # Authentication logic with Passport.js and OAuth strategies
+|-- user/ # User management including registration, update, and listing
 |-- app.module.ts # Main application file
 |-- main.ts # Entry point of the application
 |-- tests/ # Unit and integration tests
-
-### Key Updates:
-
-1. Added OAuth integration details for Google and LinkedIn using Passport.js.
-2. Described how to create OAuth apps in Google Developers Console and LinkedIn Developer Portal.
-3. Explained `.env` configuration and necessary variables.
-4. Highlighted OAuth login routes and app structure for clarity.
-
-Let me know if any further adjustments are needed!
