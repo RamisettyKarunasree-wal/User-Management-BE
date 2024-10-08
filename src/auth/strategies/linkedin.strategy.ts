@@ -26,7 +26,7 @@ export class LinkedinStrategy extends PassportStrategy(
           params: {
             grant_type: 'authorization_code',
             code,
-            redirect_uri: `${process.env.BASE_URL}${process.env.LINKEDIN_REDIRECT_URL}`,
+            redirect_uri: `${process.env.NODE_APP_BASE_URL}${process.env.LINKEDIN_REDIRECT_URL}`,
             client_id: process.env.LINKEDIN_CLIENT_ID,
             client_secret: process.env.LINKEDIN_CLIENT_SECRET,
           },

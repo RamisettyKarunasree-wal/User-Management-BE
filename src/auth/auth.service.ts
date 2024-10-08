@@ -165,7 +165,7 @@ export class AuthService {
   async revokeGoogleToken(token: string) {
     try {
       await axios.post(
-        `${process.env.GOOGLE_AUTH_ENDPOINT}/revoke?token=${token}`,
+        `https://accounts.google.com/o/oauth2/revoke?token=${token}`,
       );
     } catch (error) {
       this.logger.error('Failed to revoke the token.');
@@ -494,7 +494,7 @@ export class AuthService {
       resetTokenExpiration,
     );
 
-    const resetLink = `${process.env.RESET_PASSWORD_URL}?token=${resetToken}&userId=${user.id}`;
+    const resetLink = `${process.env.REACT_APP_BASE_URL}/reset-password?token=${resetToken}&userId=${user.id}`;
     await this.mailService.sendMail({
       to: email,
       subject: 'Reset Password',

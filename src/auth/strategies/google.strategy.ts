@@ -13,7 +13,7 @@ export class GoogleStrategy extends PassportStrategy(
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${process.env.BASE_URL}${process.env.GOOGLE_REDIRECT_URL}`,
+      callbackURL: `${process.env.NODE_APP_BASE_URL}${process.env.GOOGLE_REDIRECT_URL}`,
       scope: ['email', 'profile'],
     });
   }

@@ -49,7 +49,7 @@ export class AuthController {
   async handleRedirection(@Req() req, @Res() res: Response) {
     try {
       await this.authService.signInWithGoogle(req.user, res);
-      return res.redirect(process.env.GOOGLE_REDIRECT_URL_CLIENT);
+      return res.redirect(process.env.REACT_APP_BASE_URL);
     } catch (error) {
       this.logger.error('Google login redirection failed', error.stack);
       errorHandler(
@@ -66,7 +66,7 @@ export class AuthController {
     const params = new URLSearchParams({
       response_type: 'code',
       client_id: process.env.LINKEDIN_CLIENT_ID,
-      redirect_uri: `${process.env.BASE_URL}${process.env.LINKEDIN_REDIRECT_URL}`,
+      redirect_uri: `${process.env.NODE_APP_BASE_URL}${process.env.LINKEDIN_REDIRECT_URL}`,
       scope: 'openid profile email w_member_social',
     });
 
@@ -78,7 +78,7 @@ export class AuthController {
   async handleLinkedinRedirection(@Req() req, @Res() res: Response) {
     try {
       await this.authService.signInWithLinkedin(req.user, res);
-      return res.redirect(process.env.LINKEDIN_REDIRECT_URL_CLIENT);
+      return res.redirect(process.env.REACT_APP_BASE_URL);
     } catch (error) {
       this.logger.error('Linkedin login redirection failed', error.stack);
       errorHandler(
