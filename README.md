@@ -121,20 +121,27 @@ This is a **NestJS**-based user management application that allows users to regi
    ```
 
 2. Install the required dependencies:
-   npm install
+
+   ```bash
+    npm install
+
+   ```
 
 3. Set up environment variables by creating a .env file in the root directory with the following values:
 
-GOOGLE_CLIENT_ID=<your_google_client_id>
-GOOGLE_CLIENT_SECRET=<your_google_client_secret>
-GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
+   ```bash
+    GOOGLE_CLIENT_ID=<your_google_client_id>
+    GOOGLE_CLIENT_SECRET=<your_google_client_secret>
+    GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
 
-LINKEDIN_CLIENT_ID=<your_linkedin_client_id>
-LINKEDIN_CLIENT_SECRET=<<your_linkedin_client_secret>
-LINKEDIN_REDIRECT_URL=http://localhost:3000/auth/linkedin/callback
+    LINKEDIN_CLIENT_ID=<your_linkedin_client_id>
+    LINKEDIN_CLIENT_SECRET=<your_linkedin_client_secret>
+    LINKEDIN_REDIRECT_URL=http://localhost:3000/auth/linkedin/callback
 
-JWT_SECRET=<your_jwt_secret>
-MONGODB_URI=<your_mongodb_connection_string>
+    JWT_SECRET=<your_jwt_secret>
+    MONGODB_URI=<your_mongodb_connection_string>
+
+   ```
 
 4. Run the application:
 
