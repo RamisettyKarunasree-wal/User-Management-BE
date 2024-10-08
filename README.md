@@ -147,7 +147,7 @@ This is a **NestJS**-based user management application that allows users to regi
 
 npm run start
 
-5. Open the app in your browser at http://localhost:3000.
+5. Open the app in your browser at http://localhost:3007.
 
 ## Project Structure
 
