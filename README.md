@@ -5,15 +5,15 @@
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 ![Passport](https://img.shields.io/badge/Passport.js-34E27A?style=for-the-badge)
 ![Google](https://img.shields.io/badge/Google-4285F4?style=for-the-badge&logo=google&logoColor=white)
-![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)
+![Linkedin](https://img.shields.io/badge/Linkedin-1877F2?style=for-the-badge&logo=linkedin&logoColor=white)
 
-This is a **NestJS**-based user management application that allows users to register, log in, and manage their accounts with JWT-based authentication. The application supports OAuth login through Google and Facebook, as well as features for password management and user administration.
+This is a **NestJS**-based user management application that allows users to register, log in, and manage their accounts with JWT-based authentication. The application supports OAuth login through Google and Linkedin, as well as features for password management and user administration.
 
 ## Features
 
 - **User Registration**: Users can sign up with their email and receive a confirmation message.
 - **User Login**: Secure login with **JWT** token authentication via email or third-party OAuth providers.
-- **Login via OAuth**: Support for logging in using Google and Facebook accounts.
+- **Login via OAuth**: Support for logging in using Google and Linkedin accounts.
 - **User List**: Fetch a paginated list of users with search functionality.
 - **User Update**: Update user profile information.
 - **Password Management**:
@@ -29,7 +29,7 @@ This is a **NestJS**-based user management application that allows users to regi
 - **NodeMailer**: A module for sending emails (for password resets).
 - **Passport.js**: Authentication middleware for Node.js.
 - **Passport-Google-OAuth20**: Google OAuth 2.0 strategy for Passport.js.
-- **Passport-Facebook**: Facebook OAuth 2.0 strategy for Passport.js.
+- **Passport-Linkedin**: Linkedin OAuth 2.0 strategy for Passport.js.
 - **JWT**: For JSON Web Token authentication.
 
 ## APIs
@@ -38,27 +38,12 @@ This is a **NestJS**-based user management application that allows users to regi
 
 - **Endpoint**: `/auth/register`
 - **Method**: `POST`
-- **Request Body**:
-  ```json
-  {
-    "username": "John Doe",
-    "email": "john@example.com",
-    "password": "your_password"
-  }
-  ```
 - **Description**: Registers a new user and returns a confirmation message.
 
 ### 2. **User Login**
 
 - **Endpoint**: `/auth/login`
 - **Method**: `POST`
-- **Request Body**:
-  ```json
-  {
-    "email": "john@example.com",
-    "password": "your_password"
-  }
-  ```
 - **Description**: Logs in an existing user and returns a JWT token.
 
 ### 3. **Login via Google**
@@ -73,17 +58,17 @@ This is a **NestJS**-based user management application that allows users to regi
 - **Method**: `GET`
 - **Description**: Handles the callback after Google authentication and logs in the user.
 
-### 5. **Login via Facebook**
+### 5. **Login via Linkedin**
 
-- **Endpoint**: `/auth/facebook`
+- **Endpoint**: `/auth/linkedin`
 - **Method**: `GET`
-- **Description**: Initiates Facebook OAuth flow for user authentication.
+- **Description**: Initiates Linkedin OAuth flow for user authentication.
 
-### 6. **Facebook Callback**
+### 6. **Linkedin Callback**
 
-- **Endpoint**: `/auth/facebook/callback`
+- **Endpoint**: `/auth/linkedin/callback`
 - **Method**: `GET`
-- **Description**: Handles the callback after Facebook authentication and logs in the user.
+- **Description**: Handles the callback after Linkedin authentication and logs in the user.
 
 ### 7. **User List**
 
@@ -99,75 +84,30 @@ This is a **NestJS**-based user management application that allows users to regi
 
 - **Endpoint**: `/user/update`
 - **Method**: `PATCH`
-- **Headers**:
-  ```json
-  {
-    "Authorization": "Bearer <access_token>"
-  }
-  ```
-- **Request Body**:
-  ```json
-  {
-    "username": "John Doe",
-    "email": "john@example.com"
-  }
-  ```
 - **Description**: Updates the profile information of the logged-in user.
 
 ### 9. **Forgot Password**
 
 - **Endpoint**: `/auth/forgot-password`
 - **Method**: `POST`
-- **Request Body**:
-  ```json
-  {
-    "email": "john@example.com"
-  }
-  ```
 - **Description**: Sends a password reset link to the user's email.
 
 ### 10. **Reset Password**
 
 - **Endpoint**: `/auth/reset-password`
 - **Method**: `POST`
-- **Request Body**:
-  ```json
-  {
-    "token": "reset_token",
-    "newPassword": "your_new_password"
-  }
-  ```
 - **Description**: Resets the password using the provided token.
 
 ### 11. **Change Password**
 
 - **Endpoint**: `/auth/change-password`
 - **Method**: `PATCH`
-- **Headers**:
-  ```json
-  {
-    "Authorization": "Bearer <access_token>"
-  }
-  ```
-- **Request Body**:
-  ```json
-  {
-    "currentPassword": "your_current_password",
-    "newPassword": "your_new_password"
-  }
-  ```
 - **Description**: Changes the password while the user is logged in.
 
 ### 12. **Profile**
 
 - **Endpoint**: `/user/profile`
 - **Method**: `GET`
-- **Headers**:
-  ```json
-  {
-    "Authorization": "Bearer <access_token>"
-  }
-  ```
 - **Description**: Retrieves the profile details of the logged-in user.
 
 ## Installation
@@ -189,9 +129,9 @@ GOOGLE_CLIENT_ID=<your_google_client_id>
 GOOGLE_CLIENT_SECRET=<your_google_client_secret>
 GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
 
-FACEBOOK_APP_ID=<your_facebook_app_id>
-FACEBOOK_APP_SECRET=<your_facebook_app_secret>
-FACEBOOK_CALLBACK_URL=http://localhost:3000/auth/facebook/callback
+LINKEDIN_CLIENT_ID=<your_linkedin_client_id>
+LINKEDIN_CLIENT_SECRET=<<your_linkedin_client_secret>
+LINKEDIN_REDIRECT_URL=http://localhost:3000/auth/linkedin/callback
 
 JWT_SECRET=<your_jwt_secret>
 MONGODB_URI=<your_mongodb_connection_string>
