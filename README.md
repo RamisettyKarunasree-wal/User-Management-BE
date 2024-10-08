@@ -151,9 +151,12 @@ npm run start
 
 ## Project Structure
 
-src/
-|-- auth/ # Authentication logic with Passport.js and OAuth strategies
-|-- user/ # User management including registration, update, and listing
-|-- app.module.ts # Main application file
-|-- main.ts # Entry point of the application
-|-- tests/ # Unit and integration tests
+```bash
+  src/
+  |-- auth/ # Authentication logic with Passport.js and OAuth strategies
+  |-- user/ # User management including registration, update, and listing
+  |-- app.module.ts # Main application file
+  |-- main.ts # Entry point of the application
+  |-- tests/ # Unit and integration tests
+
+```
